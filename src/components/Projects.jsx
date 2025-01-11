@@ -48,16 +48,14 @@ const projects = [
 
 const Projects = () => {
     return (
-        <section id="projects" className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-                <h2 className="text-5xl font-bold px-4 md:px-0 text-center text-blue-900">
-                    Projects
-                </h2>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section id="projects" className="bg-white py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 className="text-5xl font-bold text-center text-blue-900 mb-12">Projects</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
-                            className={`bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col justify-between ${index >= 3 ? 'col-span-2 lg:col-span-1 mx-auto' : ''}`}
+                            className="bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col justify-between"
                             whileHover={{ scale: 1.05 }}
                         >
                             <div>
@@ -66,16 +64,10 @@ const Projects = () => {
                                     alt={project.title}
                                     className="w-full h-48 object-cover rounded-t-lg"
                                 />
-                                <h3 className="text-2xl font-semibold text-blue-500 mt-4 h-12">
-                                    {project.title}
-                                </h3>
-                                <p className="mt-4 text-sm text-gray-700 h-24">
-                                    {project.description}
-                                </p>
-                                <p className="mt-4 text-md text-gray-600 text-center h-8">
-                                    <strong>Tech Stack:</strong>
-                                </p>
-                                <div className="flex flex-wrap justify-center mt-2 space-x-2 h-12">
+                                <h3 className="text-2xl font-semibold text-blue-500 mt-4">{project.title}</h3>
+                                <p className="mt-4 text-sm text-gray-700">{project.description}</p>
+                                <p className="mt-4 text-md text-gray-600 text-center"><strong>Tech Stack</strong></p>
+                                <div className="flex flex-wrap justify-center mt-2 space-x-2">
                                     {index === 0 && (
                                         <>
                                             <FaReact className="text-blue-500" size={24} />
