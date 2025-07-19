@@ -8,7 +8,7 @@ const Education = () => {
             duration: "2022 - 2026",
             description: "Pursuing B.Tech with a focus on Full Stack Web Development (MERN Stack) and Data Structures & Algorithms in Java. Gaining practical experience through multiple real-world full stack projects.",
             cgpa: "CGPA: 6.72 / 10"
-        }
+        },
 
         {
             degree: "Higher Secondary Education",
