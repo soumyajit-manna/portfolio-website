@@ -3,12 +3,13 @@ import React from 'react';
 const Education = () => {
     const educationDetails = [
         {
-            degree: "Bachelor of Technology in Computer Science",
+             degree: "Bachelor of Technology in Computer Science & Engineering",
             institution: "Haldia Institute of Technology",
             duration: "2022 - 2026",
-            description: "Currently pursuing my degree with a focus on Full Stack Web Development (MERN) and Data Structures and Algorithms. Practicing various projects as a full stack web developer.",
-            cgpa: "CGPA: 6.61"
-        },
+            description: "Pursuing B.Tech with a focus on Full Stack Web Development (MERN Stack) and Data Structures & Algorithms in Java. Gaining practical experience through multiple real-world full stack projects.",
+            cgpa: "CGPA: 6.72 / 10"
+        }
+
         {
             degree: "Higher Secondary Education",
             institution: "Chakdwipa High School",
