@@ -14,18 +14,13 @@ const AboutMe = () => {
                             A bit about me
                         </h4>
                         <p className="mt-4 text-xl text-justify text-gray-700">
-                            I'm Soumyajit Manna, a dedicated Full Stack Web Developer with a
-                            strong foundation in creating scalable and responsive web
-                            applications. I have expertise in technologies like React.js,
-                            Node.js, MongoDB, and Express.js. My technical journey includes
-                            certifications in Full Stack Web Development and Data Structures
-                            and Algorithms with Java, which have equipped me with the skills
-                            to solve real-world problems through code.
-                            <br />
-                            <br />
-                            I'm passionate about building impactful digital solutions and
-                            constantly exploring new tools and frameworks to grow as a
-                            developer.
+                           I'm Soumyajit Manna, a passionate Full Stack Web Developer with hands-on experience in building and deploying scalable web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js).
+  <br /><br />
+  I've built real-world projects like <strong>Prescripto</strong> (a doctor appointment platform with Razorpay integration) and <strong>Tomato</strong> (a food delivery system with Stripe payments), and I'm currently developing an LMS platform to support online learning.
+  <br /><br />
+  I participated in <strong>HackByte 3.0 at IIITDM Jabalpur</strong>, where our team enhanced Prescripto by integrating AI features and email automation.
+  <br /><br />
+  Certified in Full Stack Development and Data Structures with Java, I’m driven to create impactful digital solutions and constantly explore new tools to grow as a developer.
                         </p>
                     </motion.div>
                 </div>
