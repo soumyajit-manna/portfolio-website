@@ -7,7 +7,7 @@ const Resume = () => {
                 <h2 className="text-5xl font-bold text-center text-blue-900 mb-12">Resume</h2>
                 <div className="flex justify-center">
                     <a
-                        href="/Full Stack Web Developer.B.Tech in Computer Science & Engineering.pdf" // Path to your resume in the public folder
+                        href="public/Full Stack Web Developer. B.Tech in Computer Science & Engineering.pdf" // Path to your resume in the public folder
                         download="Full Stack Web Developer.B.Tech in Computer Science & Engineering.pdf" // The name of the file to be downloaded
                         className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                     >
