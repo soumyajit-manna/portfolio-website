@@ -8,7 +8,7 @@ const Resume = () => {
                 <div className="flex justify-center">
                     <a
                         href="/Full Stack Web Developer.B.Tech in Computer Science & Engineering.pdf" // Path to your resume in the public folder
-                        download="Soumyajit_Resume.pdf" // The name of the file to be downloaded
+                        download="Full Stack Web Developer.B.Tech in Computer Science & Engineering.pdf" // The name of the file to be downloaded
                         className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
                     >
                         Download Resume
