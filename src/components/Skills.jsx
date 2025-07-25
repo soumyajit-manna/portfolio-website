@@ -1,202 +1,133 @@
 import React, { useState } from "react";
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaGit, FaGithub, FaJava } from "react-icons/fa";
-import { SiTailwindcss, SiBootstrap, SiExpress, SiMongodb, SiJsonwebtokens, SiAxios, SiCloudinary, SiVercel, SiRender, SiPostman } from "react-icons/si";
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaGit,
+  FaGithub,
+  FaJava,
+} from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiBootstrap,
+  SiExpress,
+  SiMongodb,
+  SiJsonwebtokens,
+  SiAxios,
+  SiCloudinary,
+  SiVercel,
+  SiRender,
+  SiPostman,
+} from "react-icons/si";
 import { MdSecurity } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BsFillShieldLockFill } from "react-icons/bs";
 import { AiOutlineApi } from "react-icons/ai";
-import { FiZap } from "react-icons/fi"; // Using FiZap as a generic icon for Thunderclient
-import { IoMdCloud } from "react-icons/io"; // Using IoMdCloud as a generic icon for Hopscotch
+import { FiZap } from "react-icons/fi";
+import { IoMdCloud } from "react-icons/io";
 
 const Skills = () => {
-    const [activeTab, setActiveTab] = useState("frontend");
+  const [activeTab, setActiveTab] = useState("frontend");
 
-    return (
-        <section id="skills" className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-                <h2 className="text-5xl font-bold px-4 md:px-0 text-center text-blue-900">
-                    Skills
-                </h2>
-                <div
-                    role="tablist"
-                    aria-orientation="horizontal"
-                    className="h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground font-Quicksand grid w-full grid-cols-3 mt-8 border border-blue-500"
-                    tabIndex="0"
-                    data-orientation="horizontal"
-                    style={{ outline: "none" }}
-                >
-                    <button
-                        type="button"
-                        role="tab"
-                        aria-selected={activeTab === "frontend"}
-                        aria-controls="frontend-content"
-                        data-state={activeTab === "frontend" ? "active" : "inactive"}
-                        id="frontend-trigger"
-                        className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${activeTab === "frontend"
-                                ? "bg-background text-foreground shadow-inner"
-                                : ""
-                            }`}
-                        tabIndex={activeTab === "frontend" ? "0" : "-1"}
-                        data-orientation="horizontal"
-                        onClick={() => setActiveTab("frontend")}
-                        style={{
-                            boxShadow: activeTab === "frontend" ? "inset 0 2px 4px rgba(0, 0, 0, 0.25)" : "none",
-                        }}
-                    >
-                        FrontEnd
-                    </button>
-                    <button
-                        type="button"
-                        role="tab"
-                        aria-selected={activeTab === "backend"}
-                        aria-controls="backend-content"
-                        data-state={activeTab === "backend" ? "active" : "inactive"}
-                        id="backend-trigger"
-                        className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${activeTab === "backend"
-                                ? "bg-background text-foreground shadow-inner"
-                                : ""
-                            }`}
-                        tabIndex={activeTab === "backend" ? "0" : "-1"}
-                        data-orientation="horizontal"
-                        onClick={() => setActiveTab("backend")}
-                        style={{
-                            boxShadow: activeTab === "backend" ? "inset 0 2px 4px rgba(0, 0, 0, 0.25)" : "none",
-                        }}
-                    >
-                        Backend
-                    </button>
-                    <button
-                        type="button"
-                        role="tab"
-                        aria-selected={activeTab === "others"}
-                        aria-controls="others-content"
-                        data-state={activeTab === "others" ? "active" : "inactive"}
-                        id="others-trigger"
-                        className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${activeTab === "others" ? "bg-background text-foreground shadow-inner" : ""
-                            }`}
-                        tabIndex={activeTab === "others" ? "0" : "-1"}
-                        data-orientation="horizontal"
-                        onClick={() => setActiveTab("others")}
-                        style={{
-                            boxShadow: activeTab === "others" ? "inset 0 2px 4px rgba(0, 0, 0, 0.25)" : "none",
-                        }}
-                    >
-                        Others
-                    </button>
-                </div>
-                <div className="mt-8">
-                    {activeTab === "frontend" && (
-                        <div id="frontend-content" className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                            <div className="flex flex-col items-center">
-                                <FaHtml5 size={50} className="text-orange-600" />
-                                <p className="mt-2 text-lg font-medium">HTML</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FaCss3Alt size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">CSS</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FaJs size={50} className="text-yellow-500" />
-                                <p className="mt-2 text-lg font-medium">JavaScript</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FaReact size={50} className="text-blue-500" />
-                                <p className="mt-2 text-lg font-medium">React.js</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiTailwindcss size={50} className="text-teal-500" />
-                                <p className="mt-2 text-lg font-medium">TailwindCSS</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiBootstrap size={50} className="text-purple-600" />
-                                <p className="mt-2 text-lg font-medium">Bootstrap</p>
-                            </div>
-                        </div>
-                    )}
-                    {activeTab === "backend" && (
-                        <div id="backend-content" className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                            <div className="flex flex-col items-center">
-                                <FaNodeJs size={50} className="text-green-600" />
-                                <p className="mt-2 text-lg font-medium">Node.js</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiExpress size={50} className="text-gray-600" />
-                                <p className="mt-2 text-lg font-medium">Express.js</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiMongodb size={50} className="text-green-500" />
-                                <p className="mt-2 text-lg font-medium">MongoDB</p>
-                            </div>
-                        </div>
-                    )}
-                    {activeTab === "others" && (
-                        <div id="others-content" className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                            <div className="flex flex-col items-center">
-                                <FaJava size={50} className="text-red-600" />
-                                <p className="mt-2 text-lg font-medium">Java</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiJsonwebtokens size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">JWT</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <RiLockPasswordLine size={50} className="text-gray-600" />
-                                <p className="mt-2 text-lg font-medium">bcrypt</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <MdSecurity size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">CORS</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiAxios size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">Axios</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <BsFillShieldLockFill size={50} className="text-yellow-600" />
-                                <p className="mt-2 text-lg font-medium">Toastify</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiCloudinary size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">Cloudinary</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiVercel size={50} className="text-black" />
-                                <p className="mt-2 text-lg font-medium">Vercel</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiRender size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">Render</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FaGit size={50} className="text-orange-600" />
-                                <p className="mt-2 text-lg font-medium">Git</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FaGithub size={50} className="text-black" />
-                                <p className="mt-2 text-lg font-medium">Github</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <AiOutlineApi size={50} className="text-green-600" />
-                                <p className="mt-2 text-lg font-medium">RESTful APIs</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <FiZap size={50} className="text-blue-600" />
-                                <p className="mt-2 text-lg font-medium">Thunderclient</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <IoMdCloud size={50} className="text-orange-600" />
-                                <p className="mt-2 text-lg font-medium">Hopscotch</p>
-                            </div>
-                            <div className="flex flex-col items-center">
-                                <SiPostman size={50} className="text-orange-600" />
-                                <p className="mt-2 text-lg font-medium">Postman</p>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
+  const renderSkill = (Icon, label, color = "") => (
+    <div className="flex flex-col items-center justify-center bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition duration-300">
+      <Icon size={40} className={`mb-2 ${color}`} />
+      <p className="text-xs sm:text-sm md:text-base font-medium text-center text-gray-800">
+        {label}
+      </p>
+    </div>
+  );
+
+  const tabs = ["frontend", "backend", "database", "languages", "tools & tech"];
+
+  return (
+    <section
+      id="skills"
+      className="bg-gradient-to-b from-white to-blue-50 py-20 px-4 sm:px-10 lg:px-20"
+    >
+      <h2 className="text-4xl sm:text-5xl font-bold text-center text-blue-900 mb-10">
+        Skills
+      </h2>
+
+      {/* Scrollable Tabs */}
+      <div className="mb-8">
+        <div className="w-full overflow-x-auto scrollbar-hide">
+          <div className="flex justify-center w-max md:w-full space-x-3 sm:space-x-4 px-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`whitespace-nowrap flex-shrink-0 px-4 py-2 text-sm sm:text-base font-medium rounded-full border transition-all duration-300 ${
+                  activeTab === tab
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-blue-600 border-blue-400 hover:bg-blue-100"
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Skill Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+        {activeTab === "frontend" && (
+          <>
+            {renderSkill(FaHtml5, "HTML", "text-orange-600")}
+            {renderSkill(FaCss3Alt, "CSS", "text-blue-600")}
+            {renderSkill(FaJs, "JavaScript", "text-yellow-500")}
+            {renderSkill(FaReact, "React.js", "text-blue-500")}
+            {renderSkill(SiTailwindcss, "Tailwind CSS", "text-teal-500")}
+            {renderSkill(SiBootstrap, "Bootstrap", "text-purple-600")}
+          </>
+        )}
+
+        {activeTab === "backend" && (
+          <>
+            {renderSkill(FaNodeJs, "Node.js", "text-green-600")}
+            {renderSkill(SiExpress, "Express.js", "text-gray-600")}
+          </>
+        )}
+
+        {activeTab === "database" && (
+          <>
+            {renderSkill(SiMongodb, "MongoDB", "text-green-500")}
+            {renderSkill(FaJava, "SQL", "text-blue-800")}
+          </>
+        )}
+
+        {activeTab === "languages" && (
+          <>{renderSkill(FaJava, "Java", "text-red-600")}</>
+        )}
+
+        {activeTab === "tools & tech" && (
+          <>
+            {renderSkill(AiOutlineApi, "REST APIs", "text-green-600")}
+            {renderSkill(SiJsonwebtokens, "JWT", "text-blue-600")}
+            {renderSkill(BsFillShieldLockFill, "Clerk", "text-pink-600")}
+            {renderSkill(SiCloudinary, "Cloudinary", "text-blue-600")}
+            {renderSkill(FaGit, "Git", "text-orange-600")}
+            {renderSkill(FaGithub, "GitHub", "text-black")}
+            {renderSkill(BsFillShieldLockFill, "Razorpay", "text-gray-800")}
+            {renderSkill(BsFillShieldLockFill, "Stripe", "text-indigo-600")}
+            {renderSkill(BsFillShieldLockFill, "Nodemailer", "text-red-500")}
+            {renderSkill(SiRender, "Render", "text-blue-600")}
+            {renderSkill(SiVercel, "Vercel", "text-black")}
+            {renderSkill(FiZap, "Thunderclient", "text-blue-600")}
+            {renderSkill(IoMdCloud, "Hopscotch", "text-orange-600")}
+            {renderSkill(SiPostman, "Postman", "text-orange-600")}
+            {renderSkill(MdSecurity, "CORS", "text-blue-600")}
+            {renderSkill(SiAxios, "Axios", "text-blue-600")}
+            {renderSkill(BsFillShieldLockFill, "Toastify", "text-yellow-600")}
+            {renderSkill(RiLockPasswordLine, "bcrypt", "text-gray-600")}
+          </>
+        )}
+      </div>
+    </section>
+  );
 };
 
 export default Skills;

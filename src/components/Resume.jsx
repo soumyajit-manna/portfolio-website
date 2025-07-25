@@ -1,22 +1,37 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
+import { FaDownload } from "react-icons/fa";
 
 const Resume = () => {
-    return (
-        <section id="resume" className="bg-white py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-5xl font-bold text-center text-blue-900 mb-12">Resume</h2>
-                <div className="flex justify-center">
-                    <a
-                        href="/Full Stack Web Developer. B.Tech in Computer Science & Engineering.pdf" // Path to your resume in the public folder
-                        download="Full Stack Web Developer.B.Tech in Computer Science & Engineering.pdf" // The name of the file to be downloaded
-                        className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
-                    >
-                        Download Resume
-                    </a>
-                </div>
-            </div>
-        </section>
-    );
+  return (
+    <section
+      id="resume"
+      className="bg-gradient-to-b from-white to-blue-50 py-20"
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-4xl sm:text-5xl font-bold text-blue-900 mb-12">
+          Resume
+        </h2>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
+          className="inline-block"
+        >
+          <a
+            href="/Full Stack Web Developer. B.Tech in Computer Science & Engineering.pdf"
+            download="Soumyajit_Manna_Full_Stack_Developer_Resume.pdf"
+            className="inline-flex items-center gap-3 bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300"
+          >
+            <FaDownload />
+            Download Resume
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default Resume;

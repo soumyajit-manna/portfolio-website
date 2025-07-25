@@ -2,32 +2,77 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const AboutMe = () => {
-    return (
-        <div id="about" className="bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-                <h2 className="text-5xl font-bold px-4 md:px-0 text-center text-blue-900">
-                    About Me
-                </h2>
-                <div>
-                    <motion.div>
-                        <h4 className="mt-12 text-3xl font-semibold text-blue-500">
-                            A bit about me
-                        </h4>
-                       <p className="mt-4 text-xl text-justify text-gray-700">
-  I'm Soumyajit Manna, a passionate Full Stack Web Developer with hands-on experience in building and deploying scalable web applications using the MERN stack (MongoDB, Express.js, React.js, Node.js).
-  <br /><br />
-  I've built real-world projects like <strong>Prescripto</strong> (a doctor appointment platform with Razorpay integration) and <strong>Tomato</strong> (a food delivery system with Stripe payments), and I'm currently developing an LMS platform to support online learning.
-  <br /><br />
-  I participated in <strong>HackByte 3.0 at IIITDM Jabalpur</strong>, where our team enhanced Prescripto by integrating AI features and email automation.
-  <br /><br />
-  Certified in Full Stack Development and Data Structures with Java, I’m driven to create impactful digital solutions and constantly explore new tools to grow as a developer.
-</p>
+  return (
+    <section
+      id="about"
+      className="w-full bg-gradient-to-b from-white to-blue-50 px-5 sm:px-10 lg:px-20 py-20"
+    >
+      <motion.h2
+        className="text-4xl sm:text-5xl font-bold text-center text-blue-900 mb-12"
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        About Me
+      </motion.h2>
 
-                    </motion.div>
-                </div>
-            </div>
-        </div>
-    );
+      <motion.div
+        className="w-full space-y-6 text-base sm:text-lg text-gray-800 leading-relaxed break-words"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.6 }}
+      >
+        <p>
+          I’m <strong className="text-blue-700">Soumyajit Manna</strong>, a Full
+          Stack Developer focused on building scalable, efficient, and
+          user-friendly web applications. I specialize in solving real-world
+          problems using the <strong>MERN stack</strong> and modern web
+          technologies.
+        </p>
+
+        <p>Here are some full stack projects I’ve worked on:</p>
+
+        <ul className="list-disc pl-4 space-y-3">
+          <li className="ml-1">
+            <strong className="text-blue-700">FOREVER</strong> – A fully
+            responsive fashion eCommerce platform with secure authentication,
+            admin dashboard, multi-payment support (Razorpay, Stripe, COD),
+            voice-to-text search, and Cloudinary-powered image hosting.
+          </li>
+          <li className="ml-1">
+            <strong className="text-blue-700">Prescripto</strong> – A healthcare
+            platform built with JWT authentication, Razorpay integration, and
+            role-based access control for doctors, patients, and admins.
+          </li>
+          <li className="ml-1">
+            <strong className="text-blue-700">Tomato</strong> – A food ordering
+            app with Stripe payments, real-time cart updates, email automation,
+            and a full admin panel for inventory and order management.
+          </li>
+          <li className="ml-1">
+            Currently building an <strong>LMS platform</strong> with course
+            creation, student enrollment, and secure video streaming (in
+            progress).
+          </li>
+        </ul>
+
+        <p>
+          I participated in{" "}
+          <strong className="text-blue-700">
+            HackByte 3.0 at IIITDM Jabalpur
+          </strong>
+          , where our team enhanced Prescripto with <em>AI features</em> and{" "}
+          <em>email automation</em>.
+        </p>
+
+        <p>
+          I’ve completed certifications in Full Stack Web Development and Data
+          Structures with Java. My workflow emphasizes clean code, performance,
+          and practical user-centric solutions.
+        </p>
+      </motion.div>
+    </section>
+  );
 };
 
 export default AboutMe;
