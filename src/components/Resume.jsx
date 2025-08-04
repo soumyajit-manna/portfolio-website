@@ -21,7 +21,7 @@ const Resume = () => {
           className="inline-block"
         >
           <a
-            href="/Full Stack Web Developer. B.Tech in Computer Science & Engineering.pdf"
+            href="/Soumyajit_Manna_FUllStackDeveloper.pdf"
             download="Soumyajit_Manna_Full_Stack_Developer_Resume.pdf"
             className="inline-flex items-center gap-3 bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300"
           >
