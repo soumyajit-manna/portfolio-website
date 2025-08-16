@@ -29,7 +29,10 @@ const Home = () => {
                 words={[
                   "Full Stack Web Developer",
                   "MERN Stack Developer",
-                  "Transforming Ideas into Code",
+                  "Frontend Developer",
+                  "React Developer",
+                  "Backend Developer",
+                  "Node.js Developer",
                 ]}
                 loop={true}
                 cursor
