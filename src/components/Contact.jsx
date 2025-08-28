@@ -24,32 +24,31 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
 
-    emailjs
-      .send(
-        "service_0wruo6a",
-        "template_o4tnacf",
+    try {
+      const result = await emailjs.send(
+        "service_0wruo6a", // your Service ID
+        "template_o4tnacf", // your Template ID
         {
           from_name: formData.name.trim(),
           from_email: formData.email.trim(),
           message: formData.message.trim(),
         },
-        "iuWnQmrOjMzxQd2zi"
-      )
-      .then(() => {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-      })
-      .catch(() => {
-        setStatus("error");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        "iuWnQmrOjMzxQd2zi" // your Public Key
+      );
+      console.log("EmailJS Success:", result.status, result.text);
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,6 +57,7 @@ const Contact = () => {
       className="relative w-full px-5 sm:px-10 lg:px-20 pt-16 py-20 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black"
     >
       <AnimatedBackground />
+
       {/* Floating Animated Gradient Blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -162,7 +162,7 @@ const Contact = () => {
             )}
             {status === "error" && (
               <p className="mt-4 text-red-400 text-sm font-medium">
-                ❌ Failed to send. Please try again later.
+                ❌ Failed to send. Check console for error.
               </p>
             )}
           </motion.div>
