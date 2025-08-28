@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-scroll";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,58 +40,85 @@ const Navbar = () => {
               smooth={true}
               duration={500}
               offset={-70}
-              activeClass="bg-blue-500 text-white"
               spy={true}
-              className="cursor-pointer px-3 py-2 rounded-md text-base font-medium text-black hover:bg-blue-500 hover:text-white transition"
+              activeClass="text-blue-600 border-b-2 border-blue-600"
+              className="cursor-pointer px-2 py-1 text-base font-medium text-gray-800 hover:text-blue-600 transition"
             >
               {link.name}
             </Link>
           ))}
         </div>
 
-        {/* Hamburger Menu */}
+        {/* Hamburger Button */}
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
+            aria-label="Toggle Menu"
             className="text-black focus:outline-none"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
+            {isOpen ? (
+              // Close (X)
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              // Hamburger
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white shadow-md rounded-lg py-2 px-4 fixed right-2 top-16 z-50 w-40">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              smooth={true}
-              duration={500}
-              offset={-70}
-              spy={true}
-              onClick={closeMenu}
-              activeClass="bg-blue-500 text-white"
-              className="block px-3 py-2 rounded-md text-base font-medium mt-1 text-black hover:bg-blue-500 hover:text-white cursor-pointer transition"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-      )}
+      {/* Mobile Dropdown Menu with Animation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white shadow-lg rounded-lg py-2 px-4 fixed right-3 top-16 z-50 w-44"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                smooth={true}
+                duration={500}
+                offset={-70}
+                spy={true}
+                onClick={closeMenu}
+                activeClass="bg-blue-500 text-white"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-blue-500 hover:text-white transition"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
