@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaGraduationCap, FaSchool, FaBookOpen } from "react-icons/fa";
 
 const Education = () => {
-  const educationDetails = useMemo(
-    () => [
+  const educationDetails = useMemo(() => {
+    return [
       {
         id: "btech",
         degree: "Bachelor of Technology in Computer Science & Engineering",
@@ -33,9 +33,8 @@ const Education = () => {
         board: "WBBSE",
         icon: <FaSchool className="text-purple-600 text-xl sm:text-2xl" />,
       },
-    ],
-    []
-  );
+    ];
+  }, []);
 
   // state to track which items are open
   const [openIds, setOpenIds] = useState(() => [educationDetails[0].id]);
