@@ -30,31 +30,9 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineApi } from "react-icons/ai";
 import { FiZap } from "react-icons/fi";
 import { IoMdCloud } from "react-icons/io";
-import AnimatedBackground from "./AnimatedBackground";
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState("frontend");
-
-  const renderSkill = (Icon, label, color = "") => (
-    <motion.div
-      whileHover={{ scale: 1.07, rotate: 1 }}
-      whileTap={{ scale: 0.95 }}
-      className="relative flex flex-col items-center justify-center 
-                 bg-white/10 backdrop-blur-xl rounded-2xl shadow-lg 
-                 p-5 border border-white/20 hover:border-blue-400/60 
-                 transition duration-300 group cursor-pointer
-                 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
-    >
-      {/* Neon Glow behind icon */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 blur-xl transition"></div>
-      <Icon size={34} className={`mb-3 z-10 ${color}`} />
-      <p className="text-xs sm:text-sm font-medium text-center text-gray-100 z-10">
-        {label}
-      </p>
-    </motion.div>
-  );
-
-  const tabs = ["frontend", "backend", "database", "languages", "tools & tech"];
 
   const skillSets = {
     frontend: [
@@ -94,93 +72,68 @@ const Skills = () => {
     ],
   };
 
+  const tabs = ["frontend", "backend", "database", "languages", "tools & tech"];
+
   return (
     <section
       id="skills"
-      className="relative py-20 px-4 sm:px-8 lg:px-20 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black"
+      name="skills"
+      className="relative py-16 px-4 sm:px-8 lg:px-20 overflow-hidden bg-portfolio"
     >
-      <AnimatedBackground />
-      {/* Floating Animated Gradient Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 80, -80, 0], y: [0, -60, 60, 0] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-        <motion.div
-          animate={{ x: [0, -100, 100, 0], y: [0, 70, -70, 0] }}
-          transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
-          className="absolute bottom-20 right-10 w-[28rem] h-[28rem] bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-      </div>
-
-      {/* Overlay Layer (slow shifting gradient) */}
-      <motion.div
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 bg-[length:200%_200%] mix-blend-overlay"
-      />
-
-      {/* Content */}
-      <div className="relative z-10">
+      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center gap-12">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-white mb-6">
           Skills
           <span className="block mx-auto w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-3 rounded-full"></span>
         </h2>
-        <p className="text-center text-gray-300 mb-10 text-sm sm:text-base">
-          Tech stack I use to design, build, and deploy web applications
-        </p>
 
-        {/* Tabs with Horizontal Scroll on Mobile */}
-        <div className="mb-10">
-          <div className="flex overflow-x-auto scrollbar-hide justify-start sm:justify-center space-x-2 sm:space-x-4 bg-white/10 backdrop-blur-md rounded-full p-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`relative px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base font-medium transition flex-shrink-0 ${
-                  activeTab === tab
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
-                }`}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                {activeTab === tab && (
-                  <motion.div
-                    layoutId="active-pill"
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Skills Grid */}
-        <div className="max-w-7xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -40 }}
-              transition={{ duration: 0.5 }}
+        {/* Tabs with sliding underline */}
+        <div className="relative flex flex-wrap justify-center gap-4 mb-10">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`relative px-5 py-2 font-medium text-sm sm:text-base transition ${
+                activeTab === tab
+                  ? "text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
             >
-              {skillSets[activeTab].map(([Icon, label, color], i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {renderSkill(Icon, label, color)}
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {activeTab === tab && (
+                <motion.span
+                  layoutId="underline"
+                  className="absolute left-0 right-0 bottom-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                />
+              )}
+            </button>
+          ))}
         </div>
+
+        {/* Circular Skill Layout */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            className="relative w-full flex flex-wrap justify-center items-center gap-8"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.5 }}
+          >
+            {skillSets[activeTab].map(([Icon, label, color], i) => (
+              <motion.div
+                key={label}
+                whileHover={{ scale: 1.15, y: -5 }}
+                className="flex flex-col items-center justify-center w-28 h-28 rounded-full border border-white/20 bg-white/5 backdrop-blur-md shadow-lg p-4 cursor-pointer transition-all"
+              >
+                <Icon size={36} className={`${color} mb-2`} />
+                <p className="text-sm font-medium text-gray-200 text-center">
+                  {label}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

@@ -1,35 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaDownload, FaEye } from "react-icons/fa";
-import AnimatedBackground from "./AnimatedBackground";
 
 const Resume = () => {
   return (
     <section
       id="resume"
-      className="relative w-full px-5 sm:px-10 lg:px-20 pt-16 py-20 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black -mt-1"
+      className="relative w-full px-5 sm:px-10 lg:px-20 pt-16 py-20 overflow-hidden bg-portfolio"
     >
-      <AnimatedBackground />
-      {/* Floating Animated Gradient Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 80, -80, 0], y: [0, -60, 60, 0] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-        <motion.div
-          animate={{ x: [0, -100, 100, 0], y: [0, 70, -70, 0] }}
-          transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
-          className="absolute bottom-20 right-10 w-[28rem] h-[28rem] bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-      </div>
-
-      {/* Overlay Layer */}
-      <motion.div
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 bg-[length:200%_200%] mix-blend-overlay"
-      />
+      {/* Overlay (same as Skills/Achievements) */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Content wrapper */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -66,7 +46,7 @@ const Resume = () => {
           className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
         >
           <a
-            href="/Full Stack Web Developer. B.Tech in Computer Science & Engineering.pdf"
+            href="/Soumyajit_Manna_Full_Stack_Developer.pdf"
             download="Soumyajit_Manna_Full_Stack_Developer_Resume.pdf"
             className="inline-flex items-center gap-3 bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300"
           >
@@ -90,12 +70,12 @@ const Resume = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           viewport={{ once: true }}
-          className="hidden md:block mt-12 shadow-xl rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-xl"
+          className="mt-12 shadow-xl rounded-xl overflow-hidden border border-white/20 bg-white/5 backdrop-blur-xl"
         >
           <iframe
             src="/Soumyajit_Manna_Full_Stack_Developer.pdf"
             title="Resume Preview"
-            className="w-full h-[400px] sm:h-[500px] md:h-[600px]"
+            className="w-full h-[300px] sm:h-[400px] md:h-[600px]"
           ></iframe>
         </motion.div>
       </div>

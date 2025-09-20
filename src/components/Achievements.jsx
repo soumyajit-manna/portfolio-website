@@ -1,6 +1,6 @@
-import React from "react";
-import { motion } from "framer-motion";
-import AnimatedBackground from "./AnimatedBackground";
+import React, { useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Certificates (place in public folder)
 const certificates = [
@@ -25,33 +25,49 @@ const certificates = [
 ];
 
 const Achievements = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const openAt = useCallback((index) => {
+    setActiveIndex(index);
+    document.body.style.overflow = "hidden"; // prevent background scroll
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setActiveIndex(null);
+    document.body.style.overflow = "";
+  }, []);
+
+  const showNext = useCallback(() => {
+    setActiveIndex((i) => (i === null ? 0 : (i + 1) % certificates.length));
+  }, []);
+
+  const showPrev = useCallback(() => {
+    setActiveIndex((i) =>
+      i === null
+        ? certificates.length - 1
+        : (i - 1 + certificates.length) % certificates.length
+    );
+  }, []);
+
+  // Keyboard navigation when modal open
+  useEffect(() => {
+    const onKey = (e) => {
+      if (activeIndex === null) return;
+      if (e.key === "Escape") closeModal();
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [activeIndex, closeModal, showNext, showPrev]);
+
   return (
     <section
       id="achievements"
-      className="relative py-20 px-4 sm:px-8 lg:px-20 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black"
+      className="relative py-20 px-4 sm:px-8 lg:px-20 overflow-hidden bg-portfolio"
     >
-      <AnimatedBackground />
-
-      {/* Floating Gradient Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 80, -80, 0], y: [0, -60, 60, 0] }}
-          transition={{ repeat: Infinity, duration: 22, ease: "easeInOut" }}
-          className="absolute top-28 left-16 w-80 h-80 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-        <motion.div
-          animate={{ x: [0, -100, 100, 0], y: [0, 70, -70, 0] }}
-          transition={{ repeat: Infinity, duration: 26, ease: "easeInOut" }}
-          className="absolute bottom-20 right-16 w-[26rem] h-[26rem] bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-      </div>
-
       {/* Overlay Gradient */}
-      <motion.div
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 bg-[length:200%_200%] mix-blend-overlay"
-      />
+      <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Heading */}
@@ -63,49 +79,153 @@ const Achievements = () => {
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-10 sm:mb-14"
         >
           Achievements & Certifications
-          <span className="block mx-auto w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mt-3 rounded-full"></span>
+          <span className="block mx-auto w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-3 rounded-full"></span>
         </motion.h2>
 
-        {/* Certificates Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {certificates.map((cert, index) => (
-            <motion.div
+            <motion.button
               key={index}
+              onClick={() => openAt(index)}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.12 }}
               viewport={{ once: true }}
-              className="relative group rounded-2xl overflow-hidden shadow-lg bg-gray-800/70 backdrop-blur-lg border border-gray-700 hover:shadow-pink-500/30 transition"
+              className="relative group rounded-2xl overflow-hidden transition transform hover:-translate-y-1 hover:scale-[1.01]"
+              aria-label={`Open ${cert.title} certificate`}
             >
-              {/* Certificate Image */}
-              <img
-                src={cert.file}
-                alt={cert.title}
-                className="w-full h-60 object-cover transform transition-transform duration-300 ease-out group-hover:scale-105 will-change-transform"
-              />
+              <div className="rounded-2xl p-1 bg-gradient-to-br from-blue-500/40 via-purple-500/30 to-pink-500/20">
+                <div className="rounded-xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10">
+                  <img
+                    src={cert.file}
+                    alt={cert.title}
+                    className="w-full h-56 sm:h-60 object-cover"
+                  />
 
-              {/* Overlay Info */}
-              <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col justify-center items-center text-center p-4">
-                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
-                  {cert.title}
-                </h3>
-                <p className="text-gray-300 text-sm">{cert.issuer}</p>
-                <p className="text-gray-400 text-xs mb-4">{cert.date}</p>
-                <a
-                  href={cert.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 text-sm font-medium text-white bg-pink-600 hover:bg-pink-700 rounded-lg shadow-md transition"
-                >
-                  View Certificate
-                </a>
+                  <div className="p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 className="text-base sm:text-lg font-semibold text-white truncate">
+                      {cert.title}
+                    </h3>
+                    <p className="text-xs text-gray-300">{cert.issuer}</p>
+                    <p className="text-xs text-gray-400 mt-2">{cert.date}</p>
+                  </div>
+                </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </motion.div>
+
+        {/* Modal viewer (rendered into document.body via portal to avoid stacking-context issues) */}
+        {typeof document !== "undefined" &&
+          createPortal(
+            <AnimatePresence>
+              {activeIndex !== null && certificates[activeIndex] && (
+                <motion.div
+                  key="ach-modal"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-[9999] flex items-start sm:items-center justify-center p-4 overflow-auto hide-scrollbar modal-scroll-smooth"
+                  aria-modal="true"
+                  role="dialog"
+                >
+                  <div
+                    className="absolute inset-0 bg-black/70 z-[9999]"
+                    onClick={closeModal}
+                  />
+
+                  <motion.div
+                    initial={{ scale: 0.95, y: 20 }}
+                    animate={{ scale: 1, y: 0 }}
+                    exit={{ scale: 0.95, y: 20 }}
+                    className="relative z-[10000] max-w-5xl w-full max-h-[90vh] bg-gradient-to-br from-slate-900/70 to-black/60 rounded-2xl overflow-auto hide-scrollbar modal-scroll-smooth shadow-2xl border border-white/10"
+                  >
+                    <div className="flex items-center justify-between p-4">
+                      <div>
+                        <h3 className="text-white font-semibold text-lg">
+                          {certificates[activeIndex].title}
+                        </h3>
+                        <p className="text-sm text-gray-300">
+                          {certificates[activeIndex].issuer} ·{" "}
+                          {certificates[activeIndex].date}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <a
+                          href={certificates[activeIndex].file}
+                          download
+                          className="px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded-md"
+                        >
+                          Download
+                        </a>
+
+                        <button
+                          onClick={closeModal}
+                          className="p-2 rounded-md bg-white/5 hover:bg-white/10 text-white"
+                          aria-label="Close viewer"
+                          title="Close"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="p-6 flex flex-col items-center gap-4">
+                      <div className="flex items-center gap-4 w-full justify-center">
+                        <button
+                          onClick={showPrev}
+                          className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-white shadow-lg"
+                          aria-label="Previous certificate"
+                        >
+                          ◀
+                        </button>
+
+                        <img
+                          src={certificates[activeIndex].file}
+                          alt={certificates[activeIndex].title}
+                          className="max-h-[70vh] max-w-full object-contain rounded-md shadow-inner"
+                        />
+
+                        <button
+                          onClick={showNext}
+                          className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-white shadow-lg"
+                          aria-label="Next certificate"
+                        >
+                          ▶
+                        </button>
+                      </div>
+
+                      <div className="w-full max-w-2xl flex items-center justify-center gap-3 mt-4 overflow-x-auto py-2 hide-scrollbar modal-scroll-smooth">
+                        {certificates.map((c, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setActiveIndex(i)}
+                            className={`flex-none w-20 h-12 rounded-md overflow-hidden border-2 ${
+                              i === activeIndex
+                                ? "border-blue-400"
+                                : "border-transparent"
+                            }`}
+                            aria-label={`Open ${c.title}`}
+                          >
+                            <img
+                              src={c.file}
+                              alt={c.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>,
+            document.body
+          )}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.17.0",
     "gsap": "^3.13.0",
+    "lottie-web": "^5.13.0",
     "lucide-react": "^0.544.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

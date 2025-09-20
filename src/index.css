@@ -1,28 +1,103 @@
+/* index.css */
+.bg-portfolio {
+  background: linear-gradient(to right, #000000, #6b21a8);
+}
+
+/* Dark mode override: when the html/document root has 'dark' class, prefer a solid dark background
+   This prevents the custom gradient from overpowering Tailwind's dark:bg utilities. */
+.dark .bg-portfolio {
+  /* dark gradient variant to preserve the aesthetic while being dark */
+  background: linear-gradient(90deg, #071022 0%, #111827 100%);
+}
+
+section {
+  background: transparent !important; /* ✅ force transparent */
+}
+
+/* Modal scrollbar helpers */
+.modal-scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar (WebKit) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar (Firefox) */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Enable smooth scrolling for anchor navigation */
+html,
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  /* prevent accidental horizontal scrolling on small devices caused by
+     absolutely positioned decorations or wide elements */
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* -----------------------------
+   Custom global cursor
+   - Uses a small SVG data-URI (white outlined circle) centered as the hotspot
+   - Falls back to the native pointer if the browser rejects the image cursor
+   To change the cursor design: replace the SVG inside the data: URI.
+   ----------------------------- */
+:root,
+html,
+body,
+* {
+  /* hotspot at 16 16 (center of the 32x32 SVG). Fallback to pointer. */
+  cursor: url("data:image/svg+xml;utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2232%22%20height=%2232%22%3E%3Ccircle%20cx=%2216%22%20cy=%2216%22%20r=%226%22%20fill=%22transparent%22%20stroke=%22white%22%20stroke-width=%222%22/%3E%3C/svg%3E")
+      16 16,
+    pointer;
 }
 
+/* Custom cursor elements (dot + trailing blob) */
+.custom-cursor-dot,
+.custom-cursor-tail {
+  position: fixed;
+  pointer-events: none; /* Always non-interactive */
+  z-index: 9999;
+  will-change: transform, opacity;
+  transition: opacity 200ms linear, transform 120ms linear;
+  opacity: 0;
+  display: block;
+}
 
-@keyframes gradient-x {
-  0%, 100% {
-    background-position: 0% 50%;
+.custom-cursor-dot {
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.custom-cursor-tail {
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.06)
+  );
+  border-radius: 50%;
+  filter: blur(6px);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+/* Hide custom cursor on touch devices (let native touch controls be used) */
+@media (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-tail {
+    display: none !important;
   }
-  50% {
-    background-position: 100% 50%;
-  }
 }
 
-.animate-gradient-x {
-  background-size: 200% 200%;
-  animation: gradient-x 12s ease infinite;
+/* When our custom cursor is available, hide the default image cursor for better effect */
+html:not(.no-custom-cursor) * {
+  cursor: none !important;
 }

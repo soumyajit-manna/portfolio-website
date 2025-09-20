@@ -1,28 +1,115 @@
 import React from "react";
 import heroBg from "../assets/webdev.svg";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+// Technology icons
+import {
+  SiReact,
+  SiJavascript,
+  SiNodedotjs,
+  SiTailwindcss,
+  SiHtml5,
+  SiCss3,
+  SiGithub,
+} from "react-icons/si";
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
-import backgroundImage from "../assets/background.png";
 import { Typewriter } from "react-simple-typewriter";
 
 const Home = () => {
   return (
-    <div
-      style={{
-        backgroundImage: `url('${backgroundImage}')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-      className="relative"
-    >
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/40"></div>
+    <div id="home" name="home" className="relative min-h-screen bg-portfolio">
+      {/* 👆 Added gradient background directly */}
 
-      <main
-        id="home"
-        className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100vh] py-10"
-      >
+      {/* Dark overlay for contrast (non-interactive so it won't block clicks) */}
+      <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none"></div>
+
+      {/* Animated tech icons background (behind content but above base background) */}
+      {/* hide heavy decorative icons on very small screens to avoid overflow */}
+      <div className="absolute inset-0 pointer-events-none z-10 hidden sm:block">
+        {/* use relative container for absolute positioned icons */}
+        <div className="relative w-full h-full">
+          {[
+            {
+              icon: <SiReact />,
+              size: 64,
+              top: "10%",
+              left: "12%",
+              color: "#61dafb",
+            },
+            {
+              icon: <SiJavascript />,
+              size: 48,
+              top: "20%",
+              left: "78%",
+              color: "#f7df1e",
+            },
+            {
+              icon: <SiNodedotjs />,
+              size: 56,
+              top: "65%",
+              left: "82%",
+              color: "#83CD29",
+            },
+            {
+              icon: <SiTailwindcss />,
+              size: 50,
+              top: "72%",
+              left: "18%",
+              color: "#06B6D4",
+            },
+            {
+              icon: <SiHtml5 />,
+              size: 44,
+              top: "38%",
+              left: "45%",
+              color: "#E34F26",
+            },
+            {
+              icon: <SiCss3 />,
+              size: 44,
+              top: "8%",
+              left: "55%",
+              color: "#1572B6",
+            },
+            {
+              icon: <SiGithub />,
+              size: 48,
+              top: "52%",
+              left: "6%",
+              color: "#ffffff",
+            },
+          ].map((t, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20, scale: 0.9, rotate: 0 }}
+              animate={{
+                opacity: [0.6, 0.95, 0.6],
+                y: [0, -12, 0],
+                rotate: [0, 10, 0],
+                scale: [1, 1.08, 1],
+              }}
+              transition={{
+                duration: 6 + i * 0.6,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+                delay: i * 0.2,
+              }}
+              className="absolute opacity-80 drop-shadow-lg"
+              style={{ top: t.top, left: t.left }}
+            >
+              <div
+                style={{ width: t.size, height: t.size, color: t.color }}
+                className="flex items-center justify-center"
+              >
+                {t.icon}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <main className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100vh] py-10">
         {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -41,7 +128,7 @@ const Home = () => {
               Soumyajit
             </motion.span>
             <br />
-            <span className="text-blue-300 inline-block mt-2">
+            <span className="text-purple-300 inline-block mt-2">
               <Typewriter
                 words={[
                   "Full Stack Developer",
@@ -92,7 +179,11 @@ const Home = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileHover={{
+                  scale: 1.2,
+                  rotate: 5,
+                  boxShadow: "0 0 15px #fff",
+                }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-md hover:bg-blue-500 transition text-white"
               >
@@ -114,43 +205,34 @@ const Home = () => {
         </motion.div>
 
         {/* Hero Image */}
-        <motion.img
-          initial={{ opacity: 0, y: 40 }}
-          animate={{
-            opacity: 1,
-            y: [0, -15, 0], // bounce effect
-          }}
-          transition={{
-            duration: 3, // slow & smooth
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-          src={heroBg}
-          alt="Web Development"
-          className="w-[90%] max-w-sm md:max-w-md lg:max-w-lg mb-8 md:mb-0"
-        />
-      </main>
-
-      {/* Curved Divider */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg
-          className="relative block w-[calc(100%+1.3px)] h-20"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          viewBox="0 0 1200 120"
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 md:mb-0"
         >
-          <path
-            d="M0,0 C300,100 900,0 1200,100 L1200,120 L0,120 Z"
-            fill="url(#gradient)"
-          ></path>
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#6366f1" />
-              <stop offset="100%" stopColor="#ec4899" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+          <motion.img
+            initial={{ y: 40 }}
+            animate={{ y: [0, -15, 0] }}
+            transition={{
+              y: {
+                duration: 3,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+              },
+            }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 3,
+              transition: { duration: 0.5 },
+            }}
+            src={heroBg}
+            alt="Web Development"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg cursor-pointer"
+          />
+        </motion.div>
+      </main>
     </div>
   );
 };

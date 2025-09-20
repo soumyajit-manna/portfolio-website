@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FaShoppingBag,
   FaHospital,
@@ -7,151 +7,242 @@ import {
   FaBook,
   FaTrophy,
   FaCertificate,
+  FaChevronLeft,
+  FaChevronRight,
+  FaCode,
+  FaServer,
+  FaCloud,
+  FaPlug,
 } from "react-icons/fa";
-import profilePic from "../assets/profile.jpg"; // replace with your image
-import AnimatedBackground from "./AnimatedBackground";
+import profilePic from "../assets/profile.jpg";
 
 const AboutMe = () => {
   const projects = [
     {
       title: "FOREVER",
-      desc: "A fully responsive fashion eCommerce platform with secure authentication, admin dashboard, multi-payment support (Razorpay, Stripe, COD), voice-to-text search, and Cloudinary-powered image hosting.",
+      desc: "A responsive fashion eCommerce platform with secure authentication, admin dashboard, multi-payment support, voice-to-text search, and Cloudinary image hosting.",
       icon: <FaShoppingBag className="text-pink-500 text-2xl" />,
     },
     {
       title: "Prescripto",
-      desc: "A healthcare platform built with JWT authentication, Razorpay integration, and role-based access control for doctors, patients, and admins.",
+      desc: "Healthcare platform with JWT auth, Razorpay integration, and role-based access control.",
       icon: <FaHospital className="text-green-500 text-2xl" />,
     },
     {
       title: "Tomato",
-      desc: "A food ordering app with Stripe payments, real-time cart updates, email automation, and a full admin panel for inventory and order management.",
+      desc: "Food ordering app with Stripe payments, real-time cart updates, email automation, and full admin panel.",
       icon: <FaUtensils className="text-red-500 text-2xl" />,
     },
     {
-      title: "LMS Platform (in progress)",
-      desc: "A learning management system with course creation, student enrollment, and secure video streaming.",
+      title: "LMS Platform",
+      desc: "Learning management system with course creation, student enrollment, and secure video streaming.",
       icon: <FaBook className="text-blue-500 text-2xl" />,
     },
   ];
 
   const achievements = [
     {
-      icon: <FaTrophy className="text-yellow-500 text-3xl" />,
-      desc: "Participated in HackByte 3.0 at IIITDM Jabalpur, where our team enhanced Prescripto with AI features and email automation.",
+      icon: <FaTrophy className="text-yellow-400 text-3xl" />,
+      desc: "HackByte 3.0: Enhanced Prescripto with AI & email automation.",
     },
     {
-      icon: <FaCertificate className="text-blue-500 text-3xl" />,
-      desc: "Certified in Full Stack Web Development and Data Structures with Java. Focused on clean code, performance, and user-centric solutions.",
+      icon: <FaCertificate className="text-purple-400 text-3xl" />,
+      desc: "Certified in Full Stack Web Development & Data Structures with Java.",
     },
   ];
 
-  const renderCard = (icon, title, desc) => (
-    <motion.div
-      whileHover={{ scale: 1.05, y: -5 }}
-      whileTap={{ scale: 0.95 }}
-      className="relative flex flex-col items-start bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition duration-300"
-    >
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 hover:opacity-20 blur-xl transition"></div>
-      <div className="flex items-center gap-3 mb-3 z-10">{icon}</div>
-      {title && (
-        <h3 className="text-lg font-bold text-white mb-2 z-10">{title}</h3>
-      )}
-      <p className="text-gray-200 text-sm z-10">{desc}</p>
-    </motion.div>
-  );
+  const skills = [
+    {
+      icon: <FaCode className="text-blue-400 text-3xl" />,
+      title: "Frontend Development",
+      desc: "React, JavaScript, Tailwind CSS",
+    },
+    {
+      icon: <FaServer className="text-green-400 text-3xl" />,
+      title: "Backend Development",
+      desc: "Node.js, Express.js, MongoDB",
+    },
+    {
+      icon: <FaCloud className="text-purple-400 text-3xl" />,
+      title: "Cloud Deployment",
+      desc: "AWS, Vercel, Render",
+    },
+    {
+      icon: <FaPlug className="text-yellow-400 text-3xl" />,
+      title: "API Integration",
+      desc: "REST APIs, Payment Gateways",
+    },
+  ];
+
+  const cardStyle =
+    "bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-lg transition-transform";
+
+  const [active, setActive] = useState(0);
+
+  const goToProjects = () => {
+    const el = document.getElementById("projects");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.location.hash = "#projects";
+  };
 
   return (
     <section
       id="about"
-      className="relative py-20 px-4 sm:px-8 lg:px-20 overflow-hidden bg-gradient-to-b from-gray-900 via-gray-950 to-black"
+      name="about"
+      className="relative py-16 px-4 sm:px-8 lg:px-20 bg-portfolio overflow-hidden"
     >
-      <AnimatedBackground />
-      {/* Floating Animated Gradient Blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 80, -80, 0], y: [0, -60, 60, 0] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
-          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-        <motion.div
-          animate={{ x: [0, -100, 100, 0], y: [0, 70, -70, 0] }}
-          transition={{ repeat: Infinity, duration: 25, ease: "easeInOut" }}
-          className="absolute bottom-20 right-10 w-[28rem] h-[28rem] bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mix-blend-screen filter blur-3xl opacity-20"
-        />
-      </div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
-      {/* Overlay Layer */}
-      <motion.div
-        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 bg-[length:200%_200%] mix-blend-overlay"
-      />
-
-      {/* Content */}
-      <div className="relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-white mb-6">
-          About Me
-          <span className="block mx-auto w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mt-3 rounded-full"></span>
-        </h2>
-
+      <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center gap-16">
         {/* Intro */}
         <motion.div
-          className="flex flex-col md:flex-row items-center gap-10 mb-16"
+          className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
         >
-          <motion.img
-            src={profilePic}
-            alt="Profile"
-            className="w-40 h-40 rounded-full shadow-lg object-cover shrink-0"
-            whileHover={{ scale: 1.05, rotate: 2 }}
-            transition={{ type: "spring", stiffness: 200 }}
-          />
-          <p className="text-gray-200 text-base sm:text-lg leading-relaxed max-w-2xl">
-            I’m <strong className="text-blue-400">Soumyajit Manna</strong>, a
-            Full Stack Developer passionate about building scalable, efficient,
-            and user-friendly web applications. I specialize in solving
-            real-world problems using the{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-semibold">
-              MERN stack
-            </span>{" "}
-            and modern web technologies.
+          <div className="relative w-48 h-48">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 animate-spin-slow blur-2xl"></div>
+            <img
+              src={profilePic}
+              alt="Profile"
+              className="relative w-full h-full rounded-full object-cover border-4 border-white/30 shadow-xl"
+            />
+          </div>
+
+          <p className="text-gray-200 text-lg sm:text-xl max-w-xl">
+            I’m{" "}
+            <span className="text-blue-400 font-semibold">Soumyajit Manna</span>
+            , a Full Stack Developer passionate about building end-to-end web
+            applications. I work with React, Tailwind, Node.js, Express,
+            MongoDB, and SQL to create scalable and user-friendly solutions.
+            With experience in authentication, payment integrations, and agile
+            teamwork, I enjoy turning ideas into real products that make an
+            impact.
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
-          <AnimatePresence mode="wait">
-            {projects.map((proj, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
+        {/* Projects showcase */}
+        <div className="w-full grid lg:grid-cols-3 gap-8 items-start">
+          {/* Main Project Card */}
+          <div className="lg:col-span-2 flex flex-col gap-6 items-center">
+            <div
+              className={`${cardStyle} min-h-[220px] w-full flex flex-col justify-between`}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="text-4xl">{projects[active].icon}</div>
+                  <div>
+                    <h3 className="text-2xl font-extrabold text-white">
+                      {projects[active].title}
+                    </h3>
+                    <p className="text-gray-300 mt-1 line-clamp-3 text-sm">
+                      {projects[active].desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() =>
+                      setActive(
+                        (p) => (p - 1 + projects.length) % projects.length
+                      )
+                    }
+                    className="text-white/80 hover:text-white p-2 rounded-full bg-white/3 hover:bg-white/5"
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <button
+                    onClick={() => setActive((p) => (p + 1) % projects.length)}
+                    className="text-white/80 hover:text-white p-2 rounded-full bg-white/3 hover:bg-white/5"
+                  >
+                    <FaChevronRight />
+                  </button>
+                </div>
+              </div>
+
+              <button
+                onClick={goToProjects}
+                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-full text-white font-semibold shadow-md self-start"
               >
-                {renderCard(proj.icon, proj.title, proj.desc)}
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                View Projects
+              </button>
+            </div>
+
+            {/* Centered Project Buttons */}
+            <div className="flex items-center justify-center gap-4 mt-4">
+              {projects.map((p, idx) => (
+                <motion.button
+                  key={idx}
+                  onClick={() => setActive(idx)}
+                  whileHover={{ rotate: -2, scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`flex items-center justify-center w-16 h-16 rounded-full border border-white/10 bg-white/5 text-xl transition-all ${
+                    active === idx
+                      ? "ring-4 ring-blue-500"
+                      : "opacity-90 hover:opacity-100"
+                  }`}
+                >
+                  {p.icon}
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          {/* Achievements */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className={cardStyle + " p-6"}
+            >
+              <h4 className="text-lg font-bold text-white mb-4">
+                Achievements
+              </h4>
+              <div className="flex flex-col gap-4">
+                {achievements.map((ach, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 bg-white/3 p-3 rounded-xl"
+                  >
+                    <div className="p-2 rounded-full bg-white/5">
+                      {ach.icon}
+                    </div>
+                    <p className="text-gray-200 text-sm">{ach.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Achievements & Certifications */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <AnimatePresence mode="wait">
-            {achievements.map((ach, i) => (
-              <motion.div
+        {/* Skills grid: 4 boxes responsive */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h4 className="text-xl font-bold text-white mb-6 text-center">
+            What I do
+          </h4>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {skills.map((s, i) => (
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.05 }}
+                className={`${cardStyle} flex flex-col items-center text-center p-6 hover:scale-[1.02]`}
               >
-                {renderCard(ach.icon, null, ach.desc)}
-              </motion.div>
+                <div className="p-3 rounded-full bg-white/5 mb-3">{s.icon}</div>
+                <h5 className="text-white font-semibold text-lg">{s.title}</h5>
+                <p className="text-gray-300 text-sm mt-2">{s.desc}</p>
+              </div>
             ))}
-          </AnimatePresence>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

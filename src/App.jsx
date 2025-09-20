@@ -1,6 +1,8 @@
 // filepath: /c:/Users/manna/OneDrive/Desktop/portfolio-website/src/App.jsx
 import React from "react";
+import "./index.css"; // 👈 Import global CSS
 import Navbar from "./components/Navbar";
+import CustomCursor from "./components/CustomCursor";
 import Home from "./components/Home";
 import AboutMe from "./components/AboutMe";
 import Skills from "./components/Skills";
@@ -13,13 +15,14 @@ import Achievements from "./components/Achievements";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-portfolio dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
+      {" "}
+      <CustomCursor />
       <Navbar />
       <Home />
       <AboutMe />
       <Skills />
       <Projects />
-
       <Achievements />
       <Education />
       <Resume />
