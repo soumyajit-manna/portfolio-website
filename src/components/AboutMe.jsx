@@ -114,12 +114,7 @@ const AboutMe = () => {
           <p className="text-gray-200 text-lg sm:text-xl max-w-xl">
             I’m{" "}
             <span className="text-blue-400 font-semibold">Soumyajit Manna</span>
-            , a Full Stack Developer passionate about building end-to-end web
-            applications. I work with React, Tailwind, Node.js, Express,
-            MongoDB, and SQL to create scalable and user-friendly solutions.
-            With experience in authentication, payment integrations, and agile
-            teamwork, I enjoy turning ideas into real products that make an
-            impact.
+            , a Full Stack Developer passionate about building end-to-end web applications. I work with React, Tailwind, Node.js, Express, MongoDB, and SQL to create scalable and user-friendly solutions. With experience in authentication, payment integrations, and agile teamwork, I enjoy turning ideas into real products that make an impact.
           </p>
         </motion.div>
 
