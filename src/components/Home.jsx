@@ -134,7 +134,6 @@ const Home = () => {
                   "Full Stack Developer",
                   "MERN Stack Developer",
                   "Frontend Developer",
-                  "React Developer",
                   "React.js Developer",
                   "Backend Developer",
                   "Node.js Developer",
