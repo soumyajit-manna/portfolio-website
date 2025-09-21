@@ -50,7 +50,7 @@ const projects = [
   },
   {
     title: "Tomato - Full Stack Food Delivery Platform",
-    shortTitle: "TOMATO",
+    shortTitle: "Tomato",
     tagline: "Full Stack Food Delivery Platform",
     description:
       "A responsive food delivery platform with real-time order tracking, cart management, admin panel, and secure Stripe payments.",
