@@ -19,6 +19,13 @@ const CustomCursor = () => {
       (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
 
     const htmlEl = document.documentElement;
+    // Defensive: if some earlier code added the no-custom-cursor class and
+    // we detected this device is not touch-first, remove it so our custom
+    // cursor can be used. Touch devices will still be protected below.
+    if (htmlEl.classList.contains("no-custom-cursor") && !isTouchDevice) {
+      htmlEl.classList.remove("no-custom-cursor");
+    }
+
     if (isTouchDevice) {
       // Make sure native cursor remains visible on touch devices
       htmlEl.classList.add("no-custom-cursor");

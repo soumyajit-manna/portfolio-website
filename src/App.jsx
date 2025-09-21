@@ -13,22 +13,25 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Achievements from "./components/Achievements";
 
+import { VideoProvider } from "./context/VideoContext";
+
 const App = () => {
   return (
-    <div className="bg-portfolio dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
-      {" "}
-      <CustomCursor />
-      <Navbar />
-      <Home />
-      <AboutMe />
-      <Skills />
-      <Projects />
-      <Achievements />
-      <Education />
-      <Resume />
-      <Contact />
-      <Footer />
-    </div>
+    <VideoProvider>
+      <div className="bg-portfolio dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden">
+        <CustomCursor />
+        <Navbar />
+        <Home />
+        <AboutMe />
+        <Skills />
+        <Projects />
+        <Achievements />
+        <Education />
+        <Resume />
+        <Contact />
+        <Footer />
+      </div>
+    </VideoProvider>
   );
 };
 

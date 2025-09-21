@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-scroll";
 import { motion, AnimatePresence } from "framer-motion";
-import ToggleTheme from "./ToggleTheme"; // <-- Dark/Light Mode toggle
+import ToggleTheme from "./ToggleTheme";
+import { VideoContext } from "../context/VideoContext";
+import { FaPlay, FaPause, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +11,10 @@ const Navbar = () => {
   const [navHeight, setNavHeight] = useState(70);
   const navRef = useRef(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const { isPlaying, isMuted, togglePlay, toggleMute } =
+    useContext(VideoContext);
+
+  const toggleMenu = () => setIsOpen((s) => !s);
   const closeMenu = () => setIsOpen(false);
 
   const navLinks = [
@@ -22,18 +27,13 @@ const Navbar = () => {
     { name: "Contact", to: "contact" },
   ];
 
-  // Measure navbar height
   useEffect(() => {
-    const measure = () => {
-      const h = navRef.current?.offsetHeight || 70;
-      setNavHeight(h);
-    };
+    const measure = () => setNavHeight(navRef.current?.offsetHeight || 70);
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  // Active section observer
   useEffect(() => {
     const sections = navLinks
       .map(
@@ -41,9 +41,7 @@ const Navbar = () => {
           document.getElementById(l.to) || document.getElementsByName(l.to)[0]
       )
       .filter(Boolean);
-
     if (!sections.length) return;
-
     const handleIntersect = (entries) => {
       const visible = entries
         .filter((e) => e.isIntersecting)
@@ -54,13 +52,11 @@ const Navbar = () => {
         if (id) setActive(id);
       }
     };
-
     const observer = new IntersectionObserver(handleIntersect, {
       root: null,
       rootMargin: `-${navHeight + 8}px 0px -40% 0px`,
       threshold: [0, 0.25, 0.5, 0.75, 1],
     });
-
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [navHeight]);
@@ -80,78 +76,129 @@ const Navbar = () => {
           className="text-xl md:text-2xl font-bold text-white cursor-pointer hover:scale-105 transition-transform"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          ❝𝕾𝖔𝖚𝖒𝖞𝖆𝖏𝖎𝖙.❞
+          Soumyajit.
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link) => (
-            <motion.div
-              whileHover={{ scale: 1.1, color: "#d8b4fe" }}
-              key={link.to}
-            >
-              <Link
-                to={link.to}
-                smooth={true}
-                duration={500}
-                offset={-(navHeight + 8)}
-                className={`cursor-pointer px-3 py-1 text-base font-medium transition-colors duration-300 ${
-                  active === link.to
-                    ? "text-purple-300 border-b-2 border-purple-300"
-                    : "text-white"
-                }`}
-                onClick={() => setActive(link.to)}
+          <div className="hidden md:flex items-center space-x-6">
+            {navLinks.map((link) => (
+              <motion.div
+                whileHover={{ scale: 1.1, color: "#d8b4fe" }}
+                key={link.to}
               >
-                {link.name}
-              </Link>
-            </motion.div>
-          ))}
-          {/* Dark/Light Mode Toggle */}
-          <ToggleTheme />
+                <Link
+                  to={link.to}
+                  smooth
+                  duration={500}
+                  offset={-(navHeight + 8)}
+                  className={`cursor-pointer px-3 py-1 text-base font-medium transition-colors duration-300 ${
+                    active === link.to
+                      ? "text-purple-300 border-b-2 border-purple-300"
+                      : "text-white"
+                  }`}
+                  onClick={() => setActive(link.to)}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => togglePlay()}
+                aria-label={
+                  isPlaying ? "Pause background video" : "Play background video"
+                }
+                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+                title={isPlaying ? "Pause" : "Play"}
+              >
+                {isPlaying ? <FaPause /> : <FaPlay />}
+              </button>
+              <button
+                onClick={() => toggleMute()}
+                aria-label={
+                  isMuted ? "Unmute background video" : "Mute background video"
+                }
+                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+                title={isMuted ? "Unmute" : "Mute"}
+              >
+                {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
+              </button>
+            </div>
+
+            <ToggleTheme />
+          </div>
+
+          <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile icons placed inside navbar */}
+            <div className="flex items-center space-x-2">
+              <div className="p-1">
+                <ToggleTheme />
+              </div>
+              <button
+                onClick={() => togglePlay()}
+                aria-label={
+                  isPlaying ? "Pause background video" : "Play background video"
+                }
+                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+              >
+                {isPlaying ? <FaPause size={18} /> : <FaPlay size={18} />}
+              </button>
+              <button
+                onClick={() => toggleMute()}
+                aria-label={
+                  isMuted ? "Unmute background video" : "Mute background video"
+                }
+                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+              >
+                {isMuted ? (
+                  <FaVolumeMute size={18} />
+                ) : (
+                  <FaVolumeUp size={18} />
+                )}
+              </button>
+            </div>
+
+            <button
+              onClick={toggleMenu}
+              aria-label="Toggle Menu"
+              className="text-white ml-2 focus:outline-none"
+            >
+              {isOpen ? (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Hamburger Button */}
-        <div className="md:hidden flex items-center">
-          <ToggleTheme /> {/* Mobile toggle next to hamburger */}
-          <button
-            onClick={toggleMenu}
-            aria-label="Toggle Menu"
-            className="text-white ml-2 focus:outline-none"
-          >
-            {isOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
+        {/* removed floating mobile controls - icons are inside navbar now */}
       </div>
 
-      {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -165,7 +212,7 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                smooth={true}
+                smooth
                 duration={500}
                 offset={-(navHeight + 8)}
                 onClick={() => {
@@ -181,7 +228,6 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            {/* Dark/Light Mode Toggle in mobile menu */}
             <div className="pt-2 flex justify-center">
               <ToggleTheme />
             </div>

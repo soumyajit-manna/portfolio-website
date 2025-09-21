@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import heroBg from "../assets/webdev.svg";
+import bgVideo from "../assets/Video_Generated_Without_Face.mp4";
+import { VideoContext } from "../context/VideoContext";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 // Technology icons
 import {
@@ -16,12 +18,35 @@ import { Link } from "react-scroll";
 import { Typewriter } from "react-simple-typewriter";
 
 const Home = () => {
+  const { videoRef, isPlaying, isMuted, play } = useContext(VideoContext);
+
+  // try to play on mount (will be handled gracefully by context)
+  React.useEffect(() => {
+    play();
+  }, [play]);
+
   return (
-    <div id="home" name="home" className="relative min-h-screen bg-portfolio">
+    <div
+      id="home"
+      name="home"
+      className="relative min-h-screen bg-portfolio overflow-hidden"
+    >
+      {/* Background Video - absolute and covers entire hero */}
+      <video
+        ref={videoRef}
+        className={`absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-700 ease-in-out z-0 ${
+          isPlaying ? "opacity-100" : "opacity-30"
+        }`}
+        src={bgVideo}
+        autoPlay
+        muted={isMuted}
+        loop
+        playsInline
+      />
       {/* 👆 Added gradient background directly */}
 
       {/* Dark overlay for contrast (non-interactive so it won't block clicks) */}
-      <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
 
       {/* Animated tech icons background (behind content but above base background) */}
       {/* hide heavy decorative icons on very small screens to avoid overflow */}
@@ -109,7 +134,7 @@ const Home = () => {
         </div>
       </div>
 
-      <main className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100vh] py-10">
+      <main className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100vh] py-10">
         {/* Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
