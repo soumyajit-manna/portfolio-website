@@ -80,7 +80,7 @@ const Navbar = () => {
           className="text-xl md:text-2xl font-bold text-white cursor-pointer hover:scale-105 transition-transform"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          𝓢𝓸𝓾𝓶𝔂𝓪𝓳𝓲𝓽.
+          ❝𝓢𝓸𝓾𝓶𝔂𝓪𝓳𝓲𝓽.❞
         </Link>
 
         {/* Desktop Nav */}
