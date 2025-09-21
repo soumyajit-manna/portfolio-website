@@ -50,7 +50,7 @@ const projects = [
   },
   {
     title: "Tomato - Full Stack Food Delivery Platform",
-    shortTitle: "Tomato",
+    shortTitle: "TOMATO",
     tagline: "Full Stack Food Delivery Platform",
     description:
       "A responsive food delivery platform with real-time order tracking, cart management, admin panel, and secure Stripe payments.",
@@ -73,7 +73,7 @@ const projects = [
   },
   {
     title: "Prescripto - Full Stack Healthcare Portal",
-    shortTitle: "Prescripto",
+    shortTitle: "PRESCRIPTO",
     tagline: "Full Stack Healthcare Portal",
     description:
       "Role-based appointment system for patients, doctors, and admins. Includes profile updates and Razorpay integration.",
