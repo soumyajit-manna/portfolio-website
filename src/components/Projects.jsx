@@ -73,7 +73,7 @@ const projects = [
   },
   {
     title: "Prescripto - Full Stack Healthcare Portal",
-    shortTitle: "PRESCRIPTO",
+    shortTitle: "Prescripto",
     tagline: "Full Stack Healthcare Portal",
     description:
       "Role-based appointment system for patients, doctors, and admins. Includes profile updates and Razorpay integration.",
