@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import heroBg from "../assets/webdev.svg";
 import bgVideo from "../assets/Video_Generated_Without_Face.mp4";
 import { VideoContext } from "../context/VideoContext";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
@@ -228,34 +227,8 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Hero Image */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8 md:mb-0"
-        >
-          <motion.img
-            initial={{ y: 40 }}
-            animate={{ y: [0, -15, 0] }}
-            transition={{
-              y: {
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "easeInOut",
-              },
-            }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 3,
-              transition: { duration: 0.5 },
-            }}
-            src={heroBg}
-            alt="Web Development"
-            className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg cursor-pointer"
-          />
-        </motion.div>
+        {/* Simplified layout: remove decorative right-side SVG/image and center content */}
+        <div className="w-full md:w-1/2" aria-hidden="true" />
       </main>
     </div>
   );

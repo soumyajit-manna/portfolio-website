@@ -34,6 +34,14 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  // update CSS variable so browsers can use scroll-padding-top for smooth anchoring
+  useEffect(() => {
+    if (navRef.current) {
+      const h = navRef.current.offsetHeight || 70;
+      document.documentElement.style.setProperty("--nav-height", `${h + 8}px`);
+    }
+  }, [navHeight]);
+
   useEffect(() => {
     const sections = navLinks
       .map(
@@ -71,134 +79,129 @@ const Navbar = () => {
         <Link
           to="home"
           smooth={true}
-          duration={500}
+          duration={700}
           offset={-(navHeight + 8)}
           className="text-xl md:text-2xl font-bold text-white cursor-pointer hover:scale-105 transition-transform"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          Soumyajit.
+          ❝ 𝐕𝐢𝐬𝐢𝐨𝐧𝐚𝐫𝐲 ❞
         </Link>
 
-          <div className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <motion.div
-                whileHover={{ scale: 1.1, color: "#d8b4fe" }}
-                key={link.to}
-              >
-                <Link
-                  to={link.to}
-                  smooth
-                  duration={500}
-                  offset={-(navHeight + 8)}
-                  className={`cursor-pointer px-3 py-1 text-base font-medium transition-colors duration-300 ${
-                    active === link.to
-                      ? "text-purple-300 border-b-2 border-purple-300"
-                      : "text-white"
-                  }`}
-                  onClick={() => setActive(link.to)}
-                >
-                  {link.name}
-                </Link>
-              </motion.div>
-            ))}
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => togglePlay()}
-                aria-label={
-                  isPlaying ? "Pause background video" : "Play background video"
-                }
-                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
-                title={isPlaying ? "Pause" : "Play"}
-              >
-                {isPlaying ? <FaPause /> : <FaPlay />}
-              </button>
-              <button
-                onClick={() => toggleMute()}
-                aria-label={
-                  isMuted ? "Unmute background video" : "Mute background video"
-                }
-                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
-                title={isMuted ? "Unmute" : "Mute"}
-              >
-                {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
-              </button>
-            </div>
-
-            <ToggleTheme />
-          </div>
-
-          <div className="md:hidden flex items-center space-x-2">
-            {/* Mobile icons placed inside navbar */}
-            <div className="flex items-center space-x-2">
-              <div className="p-1">
-                <ToggleTheme />
-              </div>
-              <button
-                onClick={() => togglePlay()}
-                aria-label={
-                  isPlaying ? "Pause background video" : "Play background video"
-                }
-                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
-              >
-                {isPlaying ? <FaPause size={18} /> : <FaPlay size={18} />}
-              </button>
-              <button
-                onClick={() => toggleMute()}
-                aria-label={
-                  isMuted ? "Unmute background video" : "Mute background video"
-                }
-                className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
-              >
-                {isMuted ? (
-                  <FaVolumeMute size={18} />
-                ) : (
-                  <FaVolumeUp size={18} />
-                )}
-              </button>
-            </div>
-
-            <button
-              onClick={toggleMenu}
-              aria-label="Toggle Menu"
-              className="text-white ml-2 focus:outline-none"
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center space-x-6">
+          {navLinks.map((link) => (
+            <motion.div
+              whileHover={{ scale: 1.1, color: "#d8b4fe" }}
+              key={link.to}
             >
-              {isOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
-              )}
+              <Link
+                to={link.to}
+                smooth
+                duration={700}
+                offset={-(navHeight + 8)}
+                className={`cursor-pointer px-3 py-1 text-base font-medium transition-colors duration-300 ${
+                  active === link.to
+                    ? "text-purple-300 border-b-2 border-purple-300"
+                    : "text-white"
+                }`}
+                onClick={() => setActive(link.to)}
+              >
+                {link.name}
+              </Link>
+            </motion.div>
+          ))}
+
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => togglePlay()}
+              aria-label={
+                isPlaying ? "Pause background video" : "Play background video"
+              }
+              className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+              title={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </button>
+            <button
+              onClick={() => toggleMute()}
+              aria-label={
+                isMuted ? "Unmute background video" : "Mute background video"
+              }
+              className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+              title={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
             </button>
           </div>
+
+          <ToggleTheme />
         </div>
 
-        {/* removed floating mobile controls - icons are inside navbar now */}
+        {/* Mobile Controls + Menu Button */}
+        <div className="md:hidden flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
+            <div className="p-1">
+              <ToggleTheme />
+            </div>
+            <button
+              onClick={() => togglePlay()}
+              aria-label={
+                isPlaying ? "Pause background video" : "Play background video"
+              }
+              className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+            >
+              {isPlaying ? <FaPause size={18} /> : <FaPlay size={18} />}
+            </button>
+            <button
+              onClick={() => toggleMute()}
+              aria-label={
+                isMuted ? "Unmute background video" : "Mute background video"
+              }
+              className="p-2 rounded-md text-white bg-white/10 hover:bg-white/20 transition"
+            >
+              {isMuted ? <FaVolumeMute size={18} /> : <FaVolumeUp size={18} />}
+            </button>
+          </div>
+
+          <button
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+            className="text-white ml-2 focus:outline-none"
+          >
+            {isOpen ? (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -213,7 +216,7 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 smooth
-                duration={500}
+                duration={700}
                 offset={-(navHeight + 8)}
                 onClick={() => {
                   setActive(link.to);

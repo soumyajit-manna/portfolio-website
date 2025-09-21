@@ -327,9 +327,86 @@ const Projects = () => {
                 )}
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-                  <h3 className="text-white text-2xl font-bold tracking-wide">
-                    {project.shortTitle || project.title}
-                  </h3>
+                  <div className="flex items-center gap-3">
+                    {/* Small animated icon + title */}
+                    <div
+                      style={{ width: 34, height: 34 }}
+                      className="flex items-center justify-center"
+                    >
+                      {project.shortTitle === "FOREVER" && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8 text-white"
+                          style={{
+                            transformOrigin: "center",
+                            animation: "hanger-sway 3s ease-in-out infinite",
+                          }}
+                        >
+                          <path
+                            d="M7 7c0-1.657 1.343-3 3-3s3 1.343 3 3c0 .55-.45 1-1 1h-4c-.55 0-1-.45-1-1z"
+                            stroke="white"
+                            strokeWidth="1.4"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          ></path>
+                          <path
+                            d="M4 15c0-2.761 2.239-5 5-5h6c2.761 0 5 2.239 5 5v1H4v-1z"
+                            stroke="white"
+                            strokeWidth="1.4"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          ></path>
+                        </svg>
+                      )}
+
+                      {project.shortTitle === "Tomato" && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8"
+                          style={{ animation: "tomato-bounce 1.6s infinite" }}
+                        >
+                          <circle cx="12" cy="12" r="8" fill="#ff6347" />
+                          <path
+                            d="M12 4c1 1.6 3 2 4 2s1-1 1-1-1.5-1.5-3-1.5S12 4 12 4z"
+                            fill="#2e8b57"
+                            opacity="0.9"
+                          />
+                        </svg>
+                      )}
+
+                      {project.shortTitle === "Prescripto" && (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8"
+                          style={{ animation: "heartbeat 1.6s infinite" }}
+                        >
+                          <rect
+                            x="6"
+                            y="6"
+                            width="12"
+                            height="12"
+                            rx="3"
+                            fill="#10b981"
+                            opacity="0.95"
+                          />
+                          <path
+                            d="M9 12h6"
+                            stroke="#fff"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </div>
+
+                    <h3 className="text-white text-2xl font-bold tracking-wide">
+                      {project.shortTitle || project.title}
+                    </h3>
+                  </div>
+
                   <p className="text-gray-100 text-sm mt-2">
                     {project.tagline}
                   </p>

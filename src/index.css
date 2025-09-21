@@ -34,6 +34,9 @@ section {
 html,
 body {
   scroll-behavior: smooth;
+  /* reserve space at the top when scrolling to anchors so sections don't get hidden under the fixed navbar
+     --nav-height is set dynamically by Navbar; fallback to 78px for safety */
+  scroll-padding-top: var(--nav-height, 78px);
   /* prevent accidental horizontal scrolling on small devices caused by
      absolutely positioned decorations or wide elements */
   overflow-x: hidden;
