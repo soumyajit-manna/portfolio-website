@@ -84,7 +84,7 @@ const Navbar = () => {
           className="text-xl md:text-2xl font-bold text-white cursor-pointer hover:scale-105 transition-transform"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          ❝ 𝐕𝐢𝐬𝐢𝐨𝐧𝐚𝐫𝐲 ❞
+          ❝𝐕𝐢𝐬𝐢𝐨𝐧𝐚𝐫𝐲❞
         </Link>
 
         {/* Desktop Links */}
