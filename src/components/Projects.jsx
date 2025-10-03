@@ -24,6 +24,8 @@ import {
 import ForeverVideo from "../assets/Forever_video.mp4";
 import TomatoVideo from "../assets/Tomato_video.mp4";
 import PrescriptoVideo from "../assets/Prescripto_video.mp4";
+import SpyltVideo from "../assets/Spylt_video.mp4";
+import GamingVerseVideo from "../assets/GamingVerse_video.mp4";
 
 // thumbnails removed — using CSS gradients for project backgrounds per request
 
@@ -102,10 +104,37 @@ const projects = [
     ],
     video: PrescriptoVideo,
   },
+  {
+    title: "Spylt - Interactive Animation Website",
+    shortTitle: "Spylt",
+    tagline: "Interactive Animation Website",
+    description:
+      "Developed a visually engaging single-page website featuring advanced scroll animations, parallax effects, and smooth transitions using GSAP. Optimized for responsiveness and performance across devices.",
+    projectLink: "https://spylt-inspired.vercel.app",
+    sourceCodeLink: "https://github.com/soumyajit-manna/spylt-inspired.git",
+    // neon/interactive gradient
+    bgGradient: "linear-gradient(135deg,#1f4068 0%,#11998e 100%)",
+    tech: [FaReact, FaJs, SiTailwindcss],
+    video: SpyltVideo,
+  },
+  {
+    title: "GamingVerse - Immersive Interactive Website",
+    shortTitle: "GamingVerse",
+    tagline: "Immersive Interactive Website",
+    description:
+      "Created a futuristic web experience featuring cinematic scroll animations, immersive parallax, and 3D-inspired transitions powered by GSAP. Focused on delivering high-performance, responsive design with storytelling-driven interactions.",
+    projectLink: "https://gamingverse-frontend.vercel.app",
+    sourceCodeLink:
+      "https://github.com/soumyajit-manna/gamingverse-frontend.git",
+    // futuristic gradient
+    bgGradient: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)",
+    tech: [FaReact, FaJs, SiTailwindcss],
+    video: GamingVerseVideo,
+  },
 ];
 
 const Projects = () => {
-  const displayedProjects = projects.slice(0, 3);
+  const displayedProjects = projects.slice(0, 5);
 
   // per-card open state keyed by project id (shortTitle or title) to avoid index issues
   const makeInitialOpenMap = () => {
@@ -345,12 +374,24 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* grid layout: side-by-side */}
+        {/* grid layout: first three projects in original 3-column layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedProjects.map((project, idx) => (
+          {displayedProjects.slice(0, 3).map((project, idx) => (
             <ProjectCard key={idx} project={project} idx={idx} />
           ))}
         </div>
+
+        {/* centered row for remaining projects (4 & 5) */}
+        {displayedProjects.length > 3 && (
+          <div className="mt-6 flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-4xl">
+              {displayedProjects.slice(3).map((project, i) => (
+                // pass the original index (i + 3) so video refs stay consistent
+                <ProjectCard key={i + 3} project={project} idx={i + 3} />
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-8 text-center">
           <p className="text-gray-200 mb-3">Want to see more of my work?</p>
