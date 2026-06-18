@@ -5,6 +5,16 @@ import ToggleTheme from "./ToggleTheme";
 import { VideoContext } from "../context/VideoContext";
 import { FaPlay, FaPause, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 
+const navLinks = [
+  { name: "Home", to: "home" },
+  { name: "About", to: "about" },
+  { name: "Skills", to: "skills" },
+  { name: "Projects", to: "projects" },
+  { name: "Certifications", to: "achievements" },
+  { name: "Education", to: "education" },
+  { name: "Contact", to: "contact" },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("home");
@@ -17,15 +27,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen((s) => !s);
   const closeMenu = () => setIsOpen(false);
 
-  const navLinks = [
-    { name: "Home", to: "home" },
-    { name: "About", to: "about" },
-    { name: "Skills", to: "skills" },
-    { name: "Projects", to: "projects" },
-    { name: "Certifications", to: "achievements" },
-    { name: "Education", to: "education" },
-    { name: "Contact", to: "contact" },
-  ];
+
 
   useEffect(() => {
     const measure = () => setNavHeight(navRef.current?.offsetHeight || 70);
