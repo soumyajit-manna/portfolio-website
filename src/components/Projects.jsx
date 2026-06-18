@@ -7,7 +7,6 @@ import {
   FaCss3Alt,
   FaJs,
   FaHtml5,
-  FaChevronDown,
   FaGithub,
 } from "react-icons/fa";
 import {
@@ -136,34 +135,6 @@ const projects = [
 const Projects = () => {
   const displayedProjects = projects.slice(0, 5);
 
-  // per-card open state keyed by project id (shortTitle or title) to avoid index issues
-  const makeInitialOpenMap = () => {
-    const map = {};
-    displayedProjects.forEach((p) => {
-      const key = p.shortTitle || p.title;
-      map[key] = false;
-    });
-    return map;
-  };
-
-  const [openStates, setOpenStates] = useState(makeInitialOpenMap);
-
-  const toggle = (i) => {
-    const key =
-      (displayedProjects[i] &&
-        (displayedProjects[i].shortTitle || displayedProjects[i].title)) ||
-      String(i);
-    setOpenStates((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const toggleAll = () => {
-    setOpenStates((prev) => {
-      const allOpen = Object.values(prev).every(Boolean);
-      const next = {};
-      Object.keys(prev).forEach((k) => (next[k] = !allOpen));
-      return next;
-    });
-  };
 
   // Helper: map icon component to friendly tech name
   const techNameMap = new Map([
@@ -206,22 +177,21 @@ const Projects = () => {
   }, []);
 
   // control for expand-all behaviour: toggles each time button pressed
-  const [expandAllFlag, setExpandAllFlag] = useState(0);
+  
   const [allOpen, setAllOpen] = useState(false);
 
   const handleToggleAll = () => {
-    setAllOpen((s) => !s);
-    setExpandAllFlag((n) => n + 1);
-  };
+  setAllOpen((s) => !s);
+};
 
   const ProjectCard = ({ project, idx }) => {
-    const key = project.shortTitle || project.title;
+    
     const [open, setOpen] = useState(false);
 
     // when parent toggles expand-all, set local open state to allOpen
     React.useEffect(() => {
-      setOpen(allOpen);
-    }, [expandAllFlag]);
+  setOpen(allOpen);
+}, [allOpen]);
 
     return (
       <motion.div
